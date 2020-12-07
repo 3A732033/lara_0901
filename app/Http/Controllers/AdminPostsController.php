@@ -22,9 +22,16 @@ class AdminPostsController extends Controller
 
     public function edit($id)
     {
-        $data = ['id' => $id];
-
-        return view('admin.posts.edit', $data);
+        $post = Post::find($id);
+        $data = [
+            'post' => $post,
+        ];
+    }
+    public function update(\Illuminate\Http\Request $request,$id)
+    {
+        $posts = Post::find($id);
+        $posts->update($request->all());
+        return redirect()->route('admin.posts.index');
     }
     public function store(Request $request)
     {
